@@ -1,7 +1,60 @@
 // Grupo: Kelvin França, Mª Helena e Sofia Costa 
+
 erdiagram Academia
 notation=chen
 
-entity Funcionario{}
+entity Instrutor {
+    id_instrutor key
+    nome
+    cpf
+    telefone
+    email
+}
+entity Especialidade {
+    id_esp key
+    nome
+    descricao
+}
+relationship Instrutor_Especialidade {
+    Instrutor[1..1] -> Especialidade[1..N]
+}
 
+entity Aluno {
+    id_aluno key
+    nome
+    cpf
+    telefone
+    email
+}
 
+entity Aula {
+    id_aula key
+    horario
+    local
+    capacidade
+}
+
+entity Pagamento {
+    id_pagamento key
+    data_pagamento
+    valor
+    status
+}
+relationship Pagamento_Aluno {
+    Pagamento[1..1] -> Aluno[1..1]
+}
+
+weak entity Inscricao {
+    id_inscricao partial-key
+    data_inscricao
+}
+weak relationship Aluno_Inscrito {
+    Inscricao[1..N] -> Aluno[1..1]
+}
+weak relationship Aula_Inscrita {
+    Inscricao[1..N] -> Aula[1..1]
+}
+
+weak relationship Aula_Alocada {
+    Aula[1..N] -> Instrutor[1..1]
+}
